@@ -1,0 +1,76 @@
+#include <TH1D.h>
+#include <TFile.h>
+#include <TTree.h>
+#include <CLHEP/Units/SystemOfUnits.h>
+
+#include "P1Histo.hh"
+#include "P1HistoMessenger.hh"
+#include "G4UnitsTable.hh"
+//---------------NEEDS EDITING-------------------------------------------------------------
+P1Histo::P1Histo()
+  : fRootFile(0), fNtuple(0), fTotalEnergy(0), fLowerBound(0), fUpperBound(0)
+{
+  fHisto = 0;
+  fNtuple = 0;
+  fHistoMessenger = new S1HistoMessenger(this);
+}
+
+P1Histo::~P1Histo()
+{
+  if (fRootFile) delete fRootFile;
+  delete fHistoMessenger;
+}
+
+void P1Histo::setHistoTitle(G4String val)
+{
+  fHistoTitle = val;
+}
+
+void P1Histo::setLowerBound(G4double val)
+{
+  fLowerBound = val;
+}
+
+void P1Histo::setUpperBound(G4double val)
+{
+  fUpperBound = val;
+}
+
+void P1Histo::book()
+{
+  G4String fileName = "P1Output.root";
+
+  fRootFile = new TFile(fileName, "RECREATE");
+
+  fHisto = new TH1D("P1Histo", fHistoTitle, 200, fLowerBound, fUpperBound);
+//-------------------NEEDS EDITING----------------------------------------------------------
+  fNtuple = new TTree("P1Tree", "Particle Range TTree");
+  fNtuple->Branch("Range", &fTotalEnergy, "Event Energies");
+}
+
+void P1Histo::save()
+{
+  if (fRootFile)
+    {
+      fRootFile->Write();
+      fRootFile->Close();
+    }
+}
+
+void P1Histo::FillHisto(G4double bin, G4double weight)
+{
+  fHisto->Fill(bin, weight);
+}
+
+void P1Histo::Normalize(G4double fac)
+{
+  fHisto->Scale(fac);
+}
+//----------------------NEEDS EDITING-----------------------------------------------------------
+void P1Histo::FillNtuple(G4double totalEnergy)
+{
+  fTotalEnergy = totalEnergy;
+  fNtuple->Fill();
+}
+
+

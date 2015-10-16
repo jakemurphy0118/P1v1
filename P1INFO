@@ -1,0 +1,5 @@
+P1INFO
+Jake Murphy
+
+This simulation investigates how far positrons will penetrate blocks of aerogel until losing all kinetic energy.  The source is a disk of Na-22 with thin sheets of Kapton foil above and below.  Above the foil is 5 micrometers of polyvinyltoluene plastic scintilator followed by the 1x1x1 cm cube of aerogel.  
+	I was unsure about the proper density and composition of the aerogel, but density seems to only affects the percent of positrons that make it through the aerogel.  The distribution of endpoints within the aerogel seems to be mostly determined by the angle it strikes the aerogel cube.  

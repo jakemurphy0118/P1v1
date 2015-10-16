@@ -1,0 +1,27 @@
+/run/initialize
+#/vis/open OGL
+#/vis/drawVolume
+#/vis/viewer/set/style wireframe
+#/vis/viewer/set/viewpointThetaPhi 45 45
+#/vis/viewer/zoom 300
+#/vis/scene/add/trajectories
+#/vis/scene/add/hits
+
+/P1/histo/setxLowerBound -0.5 cm
+/P1/histo/setxUpperBound 0.5 cm
+/P1/histo/setzLowerBound 0.005 cm
+/P1/histo/setzUpperBound 1.005 cm
+/P1/histo/setHistoTitle XZ-Plane View of e+ Endpoints in Aerogel(Top and Bottom)
+
+/gps/particle ion
+/gps/ion 11 22 0 0
+/gps/energy 0.0 MeV
+/gps/pos/type Volume
+/gps/pos/shape Cylinder
+/gps/pos/centre 0. 0. 0. m
+/gps/pos/radius 1.25 mm
+/gps/pos/halfz 0.002 mm
+/gps/ang/type iso
+
+/run/beamOn 1000000
+

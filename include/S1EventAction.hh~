@@ -1,0 +1,29 @@
+#ifndef S1EventAction_h
+#define S1EventAction_h 1
+
+#include "G4UserEventAction.hh"
+#include "globals.hh"
+
+class S1RunAction;
+class S1Histo;
+
+class S1EventAction : public G4UserEventAction
+{
+public:
+  S1EventAction(S1RunAction*, S1Histo*);
+  virtual ~S1EventAction();
+
+  virtual void BeginOfEventAction(const G4Event*);
+  virtual void EndOfEventAction(const G4Event*);
+
+  void AddEdep(G4double dE) {fTotalEnergy += dE;};
+
+  private:
+  S1RunAction* fRunAction;
+  S1Histo* fHisto;
+  
+  G4double  fTotalEnergy;
+  G4int fEventModulo;
+};
+
+#endif

@@ -1,0 +1,36 @@
+#include "P1SteppingAction.hh"
+#include "P1EventAction.hh"
+#include "P1DetectorConstruction.hh"
+
+#include "G4Step.hh"
+//------------------------------------OLD---------------------
+P1SteppingAction::P1SteppingAction(P1DetectorConstruction* detector)
+  : G4UserSteppingAction()
+{}
+
+P1SteppingAction::~P1SteppingAction()
+{}
+
+//--------------------------------NEW-------------------------------
+void P1SteppingAction::UserSteppingAction(const G4Step* aStep){
+	
+	G4StepPoint* point1 = aStep->GetPreStepPoint();
+	G4StepPoint* point2 = aStep->GetPostStepPoint();
+
+
+
+
+	G4Track* theTrack = aStep->GetTrack();
+	G4ParticleDefinition* particleType = theTrack->GetDefinition();
+	G4String particleName = particleType->GetParticleName();
+
+	G4VPhysicalVolume* fGeomBoundary1 = GetTopAero();
+	G4VPhysicalVolume* fGeomBoundary2 = GetBottomAero();
+
+	if(particleName == "e+"){
+		if(point1->GetStepStatus() ==  fGeomBoundary1 || point1->GetStepStatus() == fGeomBoundary2){
+			G4ThreeVector pos1 = point1->GetPosition();
+			G4cout << "Aerogel Entry Position: " << pos1 << G4endl;
+		}
+	}
+}

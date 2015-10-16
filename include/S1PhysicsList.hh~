@@ -1,0 +1,13 @@
+#ifndef S1PhysicsList_h
+#define S1PhysicsList_h 1
+
+#include "G4VModularPhysicsList.hh"
+#include "G4VUserPhysicsList.hh"
+
+class S1PhysicsList : public G4VUserPhysicsList{
+public:
+	S1PhysicsList();
+	virtual ~S1PhysicsList();
+	virtual void SetCuts();
+};
+#endif

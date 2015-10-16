@@ -1,0 +1,22 @@
+#ifndef S1SteppingAction_h
+#define S1SteppingAction_h 1
+
+#include "G4UserSteppingAction.hh"
+
+class S1EventAction;
+class S1DetectorConstruction;
+
+class S1SteppingAction : public G4UserSteppingAction
+{
+public:
+  S1SteppingAction(S1DetectorConstruction*, S1EventAction*);
+  virtual ~S1SteppingAction();
+
+  virtual void UserSteppingAction(const G4Step*);
+
+private:
+  S1EventAction*  fEventAction;
+  S1DetectorConstruction* fDetector;
+};
+
+#endif

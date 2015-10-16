@@ -1,0 +1,32 @@
+#include "P1EventAction.hh"
+#include "P1RunAction.hh"
+#include "P1Histo.hh"
+
+#include "G4Event.hh"
+
+S1EventAction::S1EventAction(P1RunAction* run, P1Histo* histo)
+  : G4UserEventAction(), fRunAction(run), fHisto(histo),
+    fTotalEnergy(0.), fEventModulo(0)
+{
+  fEventModulo = 100;
+} 
+
+P1EventAction::~P1EventAction()
+{}
+
+void P1EventAction::BeginOfEventAction(const G4Event*)
+{    
+  fTotalEnergy = 0.;
+}
+
+void P1EventAction::EndOfEventAction(const G4Event* anEvent)
+{
+  G4int eventNumber = anEvent->GetEventID();
+  if (eventNumber%fEventModulo == 0)
+    {
+      G4cout << "\nThis marks the start of event " << eventNumber << G4endl;
+    }
+  fRunAction->FillPerEvent(fTotalEnergy);
+  fHisto->FillHisto(fTotalEnergy);
+  fHisto->FillNtuple(fTotalEnergy);
+}
